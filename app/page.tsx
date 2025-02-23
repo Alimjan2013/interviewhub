@@ -12,10 +12,13 @@ export default function Home() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Button asChild size="lg">
-            <Link href="/register">Get Started</Link>
+            <Link href="/interview">Get Started</Link>
           </Button>
           <Button asChild variant="outline" size="lg">
             <Link href="/login">Sign In</Link>
+          </Button>
+          <Button asChild variant="secondary" size="lg">
+            <Link href="/addperson">Add Agent</Link>
           </Button>
         </div>
       </div>

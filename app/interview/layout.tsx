@@ -1,4 +1,7 @@
 import type React from "react"
+import Link from "next/link"
+import { Plus } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { AuthButton } from "@/components/auth/auth-button"
 
 export default function InterviewLayout({
@@ -13,7 +16,15 @@ export default function InterviewLayout({
           <div className="flex items-center space-x-4">
             <h2 className="text-lg font-semibold">InterviewHub</h2>
           </div>
-          <AuthButton />
+          <div className="flex items-center space-x-4">
+            <Button asChild variant="outline" size="sm">
+              <Link href="/addperson">
+                <Plus className="mr-2 h-4 w-4" />
+                Add Agent
+              </Link>
+            </Button>
+            <AuthButton />
+          </div>
         </div>
       </header>
       <main className="flex-1">{children}</main>

@@ -7,13 +7,14 @@ interface ConversationOptions {
   agentId: string
   onConnect?: () => void
   onDisconnect?: () => void
-  onMessage?: (message: string) => void
-  onError?: (error: unknown) => void
+  onMessage?: (message: any) => void
+  onError?: (error: any) => void
 }
 
 interface Conversation {
   startSession: (options: { agentId: string }) => Promise<void>
   endSession: () => Promise<void>
+  sendMessage: (message: string) => Promise<void>
   isSpeaking: boolean
 }
 
@@ -21,24 +22,34 @@ export function useConversation(options: ConversationOptions): Conversation {
   const [isSpeaking, setIsSpeaking] = useState(false)
 
   const startSession = useCallback(
-    async (agentOptions: { agentId: string }) => {
+    async (config: { agentId: string }) => {
       options.onConnect?.()
-      setIsSpeaking(true) // Mock speaking
+      console.log("Starting session with agent ID:", config.agentId)
+      // Mock implementation
+      setIsSpeaking(true)
       setTimeout(() => {
-        options.onMessage?.("Hello, I am your AI interviewer.")
+        options.onMessage?.({ source: "ai", message: "Hello from the AI!" })
         setIsSpeaking(false)
-      }, 1000)
+      }, 2000)
     },
     [options],
   )
 
   const endSession = useCallback(async () => {
     options.onDisconnect?.()
+    console.log("Ending session")
+    // Mock implementation
   }, [options])
+
+  const sendMessage = useCallback(async (message: string) => {
+    console.log("Sending message:", message)
+    // Mock implementation
+  }, [])
 
   return {
     startSession,
     endSession,
+    sendMessage,
     isSpeaking,
   }
 }

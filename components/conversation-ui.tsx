@@ -9,7 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { AudioVisualizer } from "./audio-visualizer"
 import { Transcript } from "./transcript"
 import { useElevenLabs } from "./providers/elevenlabs-provider"
-import type { ConversationState, Message } from "@/lib/types"
+import type { ConversationState, Message, MessagePayload } from "@/lib/types"
 
 export function ConversationUI() {
   const elevenLabs = useElevenLabs()
@@ -34,16 +34,22 @@ export function ConversationUI() {
     onConnect: () => setState((prev) => ({ ...prev, status: "connected" })),
     onDisconnect: () => setState((prev) => ({ ...prev, status: "disconnected" })),
     onMessage: (message) => {
-      if (typeof message === "string") {
+      console.log("Message:", message)
+      try {
+        const payload =
+          typeof message === "string" ? (JSON.parse(message) as MessagePayload) : (message as MessagePayload)
+
         setMessages((prev) => [
           ...prev,
           {
             id: Date.now().toString(),
-            role: "assistant",
-            content: message,
+            role: payload.source,
+            content: payload.message,
             timestamp: new Date(),
           },
         ])
+      } catch (error) {
+        console.error("Error processing message:", error)
       }
     },
     onError: handleError,
