@@ -87,7 +87,7 @@ export function ConversationUI({ agentId }: ConversationUIProps) {
   }
 
   return (
-    <>
+    <div className= "flex flex-row gap-6 w-full" >
       <Card className="w-full">
         <CardHeader>
           <CardTitle>Interview Practice Session</CardTitle>
@@ -158,7 +158,7 @@ export function ConversationUI({ agentId }: ConversationUIProps) {
       </Card>
 
       <InterviewGuide messages={messages} />
-    </>
+    </div>
   )
 }
 

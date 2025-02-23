@@ -68,8 +68,8 @@ export default function InterviewPage() {
   }
 
   return (
-    <div className="py-8 mx-auto">
-      <div className="container max-w-2xl">
+    <div className="py-8 px-16 mx-auto max-w-5xl">
+      <div className=" ">
         {agent && (
           <div className="mb-6">
             <h1 className="text-2xl font-bold mb-2">Interview with {agent.name}</h1>

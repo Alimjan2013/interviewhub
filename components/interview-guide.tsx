@@ -119,13 +119,9 @@ export function InterviewGuide({ messages }: InterviewGuideProps) {
 
   return (
     <Card
-      className={cn("fixed w-96 shadow-lg transition-transform", isDragging && "cursor-grabbing")}
-      style={{
-        top: `${position.y}px`,
-        left: `${position.x}px`,
-      }}
+      className={cn(" w-96 w-full shadow-lg ")}
     >
-      <CardHeader className="cursor-grab py-3 flex flex-row items-center space-y-0" onMouseDown={handleMouseDown}>
+      <CardHeader className=" py-3 flex flex-row items-center space-y-0">
         <CardTitle className="text-sm font-medium flex items-center gap-2">
           <Lightbulb className="h-4 w-4" />
           Interview Guide
