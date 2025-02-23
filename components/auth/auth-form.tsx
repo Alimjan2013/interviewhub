@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useRouter } from "next/navigation"
-import { Github } from "lucide-react"
+// import { Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -48,27 +48,27 @@ export function AuthForm({ type = "login", className, ...props }: AuthFormProps)
     }
   }
 
-  async function signInWithGithub() {
-    setIsLoading(true)
-    setError("")
+  // async function signInWithGithub() {
+  //   setIsLoading(true)
+  //   setError("")
 
-    try {
-      const { error: oauthError } = await supabase.auth.signInWithOAuth({
-        provider: "github",
-        options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
-        },
-      })
+  //   try {
+  //     const { error: oauthError } = await supabase.auth.signInWithOAuth({
+  //       provider: "github",
+  //       options: {
+  //         redirectTo: `${window.location.origin}/auth/callback`,
+  //       },
+  //     })
 
-      if (oauthError) {
-        setError(oauthError.message)
-      }
-    } catch (err) {
-      setError("An unexpected error occurred"+err,)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+  //     if (oauthError) {
+  //       setError(oauthError.message)
+  //     }
+  //   } catch (err) {
+  //     setError("An unexpected error occurred"+err,)
+  //   } finally {
+  //     setIsLoading(false)
+  //   }
+  // }
 
   return (
     <Card className={`w-full max-w-md ${className || ""}`} {...props}>
@@ -113,10 +113,10 @@ export function AuthForm({ type = "login", className, ...props }: AuthFormProps)
           <Button type="submit" className="w-full" disabled={isLoading}>
             {isLoading ? "Loading..." : type === "login" ? "Login" : "Create Account"}
           </Button>
-          <Button type="button" variant="outline" className="w-full" onClick={signInWithGithub} disabled={isLoading}>
+          {/* <Button type="button" variant="outline" className="w-full" onClick={signInWithGithub} disabled={isLoading}>
             <Github className="mr-2 h-4 w-4" />
             Continue with GitHub
-          </Button>
+          </Button> */}
         </CardFooter>
       </form>
     </Card>

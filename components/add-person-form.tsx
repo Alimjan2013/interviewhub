@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { FileUpload } from "./file-upload"
 import { AIEditDialog } from "@/components/ai-edit-dialog"
+import { useRouter } from "next/navigation"
 
 // Updated schema to use new knowledge_base structure
 const formSchema = z.object({
@@ -41,6 +42,7 @@ export function AddPersonForm() {
   const [error, setError] = useState<string>("")
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -90,6 +92,7 @@ export function AddPersonForm() {
       }
 
       setSuccess(true)
+      router.push("/") // navigate to home page after successful creation
       form.reset() // Reset form after successful creation
     } catch (error) {
       console.error("Error creating agent:", error)
