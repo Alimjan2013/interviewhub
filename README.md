@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InterviewHub 🎯
 
-## Getting Started
+InterviewHub is a modern web platform that helps people improve their conversation skills through practice with AI-powered digital humans. Users can both practice their communication skills and share their stories to help others learn.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### For Learners
+- Practice conversations with AI-powered digital humans
+- Real-time feedback and suggestions during conversations
+- Natural voice interactions powered by ElevenLabs
+- Interactive conversation guide with contextual tips
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### For Story Sharers
+- Create AI versions of yourself to help others learn
+- Upload documents and background information
+- AI-assisted story editing and refinement
+- Share your experiences in an interactive format
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tech Stack
 
-## Learn More
+- **Frontend Framework**: [Next.js 14](https://nextjs.org/) with App Router
+- **AI Integration**: 
+  - [ElevenLabs Conversation AI](https://elevenlabs.io/) for voice synthesis and conversation
+  - [Vercel AI SDK](https://sdk.vercel.ai/) for AI features
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **Authentication**: [Supabase Auth](https://supabase.com/auth)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Deployment**: [Vercel](https://vercel.com)
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prerequisites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js 18+ 
+- npm or yarn
+- Supabase account
+- ElevenLabs API key
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

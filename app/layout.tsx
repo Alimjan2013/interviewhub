@@ -30,7 +30,6 @@ export default function RootLayout({
           <div className="flex items-center space-x-4">
           <Link href="/">
           <h2 className="text-lg font-semibold">InterviewHub</h2>
-
               </Link>
           </div>
           <div className="flex items-center space-x-4">
