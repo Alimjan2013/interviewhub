@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { FileUpload } from "./file-upload"
+import { AIEditDialog } from "@/components/ai-edit-dialog"
 
 // Updated schema to use new knowledge_base structure
 const formSchema = z.object({
@@ -33,6 +34,8 @@ const formSchema = z.object({
     }),
   }),
 })
+
+
 
 export function AddPersonForm() {
   const [error, setError] = useState<string>("")
@@ -125,7 +128,7 @@ export function AddPersonForm() {
                     <FormControl>
                       <Input placeholder="Jone D" {...field} />
                     </FormControl>
-                    <FormDescription>A unique name for your Users profile</FormDescription>
+                    <FormDescription>A unique name for your User&lsquo;s profile</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -137,14 +140,19 @@ export function AddPersonForm() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>User Story</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="tell about user&apos;s background story"
-                        className="min-h-[200px]"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormDescription>tell about user&apos;s background story</FormDescription>
+                    <div className="space-y-2">
+                      <FormControl>
+                        <Textarea
+                          placeholder="Tell about user's background story"
+                          className="min-h-[200px]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <div className="flex justify-end">
+                        <AIEditDialog currentStory={field.value} onUpdate={(newStory) => field.onChange(newStory)} />
+                      </div>
+                    </div>
+                    <FormDescription>Tell about user&lsquo;s background story</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
