@@ -2,6 +2,7 @@ import type React from "react"
 import { Inter } from "next/font/google"
 import { ElevenLabsProvider } from "@/components/providers/elevenlabs-provider"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ElevenLabsProvider>{children}</ElevenLabsProvider>
+        <ElevenLabsProvider>
+          {children}
+          <Analytics />
+        </ElevenLabsProvider>
       </body>
     </html>
   )
