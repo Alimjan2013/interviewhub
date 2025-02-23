@@ -28,8 +28,10 @@ export default function RootLayout({
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="px-10 flex h-14 items-center justify-between">
           <div className="flex items-center space-x-4">
-            
-            <h2 className="text-lg font-semibold">InterviewHub</h2>
+          <Link href="/">
+          <h2 className="text-lg font-semibold">InterviewHub</h2>
+
+              </Link>
           </div>
           <div className="flex items-center space-x-4">
             <Button asChild variant="outline" size="sm">
