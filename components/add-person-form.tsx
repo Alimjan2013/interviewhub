@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { FileUpload } from "./file-upload"
@@ -34,24 +33,6 @@ const formSchema = z.object({
     }),
   }),
 })
-
-const llmOptions = [
-  "gemini-2.0-flash-001", 
-  "claude-3-5-sonnet",
-  "claude-2",
-  "claude-instant",
-  "gpt-3.5-turbo",
-  "gpt-4",
-  "palm-2",
-  "command",
-  "command-nightly",
-  "j2-light",
-  "j2-mid",
-  "j2-ultra",
-  "llama-2-7b",
-  "llama-2-13b",
-  "llama-2-70b",
-]
 
 export function AddPersonForm() {
   const [error, setError] = useState<string>("")
@@ -144,7 +125,7 @@ export function AddPersonForm() {
                     <FormControl>
                       <Input placeholder="Jone D" {...field} />
                     </FormControl>
-                    <FormDescription>A unique name for your User's profile</FormDescription>
+                    <FormDescription>A unique name for your Users profile</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -158,12 +139,12 @@ export function AddPersonForm() {
                     <FormLabel>User Story</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="tell about user's background story"
+                        placeholder="tell about user&apos;s background story"
                         className="min-h-[200px]"
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>tell about user's background story</FormDescription>
+                    <FormDescription>tell about user&apos;s background story</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

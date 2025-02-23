@@ -29,21 +29,34 @@ export function ConversationUI() {
     }))
   }, [])
 
+  interface ConversationCallbacks {
+    onConnect: () => void;
+    onDisconnect: () => void;
+    onMessage: (message: string | MessagePayload) => void;
+    onError: (error: unknown) => void;
+  }
+
+  interface UseConversationOptions extends ConversationCallbacks {
+    apiKey: string;
+  }
+
   const conversation = useConversation({
     apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY!,
-    onConnect: () => setState((prev) => ({ ...prev, status: "connected" })),
-    onDisconnect: () => setState((prev) => ({ ...prev, status: "disconnected" })),
-    onMessage: (message) => {
+    onConnect: (): void => setState((prev) => ({ ...prev, status: "connected" })),
+    onDisconnect: (): void => setState((prev) => ({ ...prev, status: "disconnected" })),
+    onMessage: (message: string | MessagePayload): void => {
       console.log("Message:", message)
       try {
         const payload =
-          typeof message === "string" ? (JSON.parse(message) as MessagePayload) : (message as MessagePayload)
+          typeof message === "string"
+            ? (JSON.parse(message) as MessagePayload)
+            : (message as MessagePayload)
 
         setMessages((prev) => [
           ...prev,
           {
             id: Date.now().toString(),
-            role: payload.source,
+            role: payload.source === "ai" ? "assistant" : payload.source,
             content: payload.message,
             timestamp: new Date(),
           },
@@ -53,7 +66,7 @@ export function ConversationUI() {
       }
     },
     onError: handleError,
-  })
+  } as UseConversationOptions)
 
   const startConversation = useCallback(async () => {
     try {

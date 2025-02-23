@@ -103,7 +103,8 @@ export function FileUpload({ value = [], onChange }: FileUploadProps) {
       return
     }
 
-    for (const file of files) {
+    // Convert FileList to array for iteration
+    for (const file of Array.from(files)) {
       if (file.type !== "application/pdf") {
         setError("Only PDF files are allowed")
         continue

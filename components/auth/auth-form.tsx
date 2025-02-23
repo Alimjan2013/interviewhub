@@ -29,20 +29,20 @@ export function AuthForm({ type = "login", className, ...props }: AuthFormProps)
     const password = formData.get("password") as string
 
     try {
-      const { error } =
+      const { error: authError } =
         type === "login"
           ? await supabase.auth.signInWithPassword({ email, password })
           : await supabase.auth.signUp({ email, password })
 
-      if (error) {
-        setError(error.message)
+      if (authError) {
+        setError(authError.message)
         return
       }
 
       router.refresh()
       router.push("/interview")
-    } catch (error) {
-      setError("An unexpected error occurred")
+    } catch (err) {
+      setError("An unexpected error occurred"+err,)
     } finally {
       setIsLoading(false)
     }
@@ -53,25 +53,25 @@ export function AuthForm({ type = "login", className, ...props }: AuthFormProps)
     setError("")
 
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider: "github",
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
       })
 
-      if (error) {
-        setError(error.message)
+      if (oauthError) {
+        setError(oauthError.message)
       }
-    } catch (error) {
-      setError("An unexpected error occurred")
+    } catch (err) {
+      setError("An unexpected error occurred"+err,)
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <Card className="w-full max-w-md" {...props}>
+    <Card className={`w-full max-w-md ${className || ""}`} {...props}>
       <CardHeader>
         <CardTitle>{type === "login" ? "Login" : "Create Account"}</CardTitle>
         <CardDescription>
