@@ -63,25 +63,64 @@ export function AudioVisualizer({ isListening }: AudioVisualizerProps) {
 
       analyser.getByteFrequencyData(dataArray)
 
-      ctx.fillStyle = "rgb(249, 250, 251)"
+      // Clear the canvas with a semi-transparent black for trail effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.2)"
       ctx.fillRect(0, 0, WIDTH, HEIGHT)
 
-      const barWidth = (WIDTH / dataArray.length) * 2.5
-      let barHeight
+      // Create gradient
+      const gradient = ctx.createLinearGradient(0, HEIGHT, 0, 0)
+      gradient.addColorStop(0, "#0ea5e9") // Light blue
+      gradient.addColorStop(0.5, "#6366f1") // Indigo
+      gradient.addColorStop(1, "#a855f7") // Purple
+
+      // Draw the waveform
+      ctx.beginPath()
+      ctx.moveTo(0, HEIGHT)
+
+      // Calculate points for smooth curve
+      const points = []
+      const sliceWidth = WIDTH / dataArray.length
       let x = 0
 
       for (let i = 0; i < dataArray.length; i++) {
-        barHeight = (dataArray[i] / 255) * HEIGHT
-
-        const gradient = ctx.createLinearGradient(0, 0, 0, HEIGHT)
-        gradient.addColorStop(0, "#2563eb")
-        gradient.addColorStop(1, "#3b82f6")
-
-        ctx.fillStyle = gradient
-        ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight)
-
-        x += barWidth + 1
+        const v = dataArray[i] / 128.0
+        const y = (v * HEIGHT) / 2
+        points.push({ x, y: HEIGHT - y })
+        x += sliceWidth
       }
+
+      // Draw smooth curve through points
+      ctx.moveTo(0, HEIGHT)
+      ctx.lineTo(points[0].x, points[0].y)
+
+      for (let i = 1; i < points.length - 2; i++) {
+        const xc = (points[i].x + points[i + 1].x) / 2
+        const yc = (points[i].y + points[i + 1].y) / 2
+        ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc)
+      }
+
+      // Connect the last points
+      if (points.length > 2) {
+        const last = points[points.length - 1]
+        const secondLast = points[points.length - 2]
+        ctx.quadraticCurveTo(secondLast.x, secondLast.y, last.x, last.y)
+      }
+
+      ctx.lineTo(WIDTH, HEIGHT)
+      ctx.closePath()
+
+      // Fill with gradient
+      ctx.fillStyle = gradient
+      ctx.fill()
+
+      // Add glow effect
+      ctx.shadowBlur = 15
+      ctx.shadowColor = "#6366f1"
+
+      // Stroke the line
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.5)"
+      ctx.lineWidth = 2
+      ctx.stroke()
 
       animationRef.current = requestAnimationFrame(draw)
     }
@@ -89,6 +128,6 @@ export function AudioVisualizer({ isListening }: AudioVisualizerProps) {
     draw()
   }
 
-  return <canvas ref={canvasRef} width={300} height={50} className="rounded-lg bg-gray-50" />
+  return <canvas ref={canvasRef} width={500} height={100} className="rounded-lg bg-black/90" />
 }
 
