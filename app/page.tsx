@@ -12,7 +12,7 @@ export default function Home() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Button asChild size="lg">
-            <Link href="/interview">Get Started</Link>
+            <Link href="/agents">Get Started</Link>
           </Button>
           <Button asChild variant="outline" size="lg">
             <Link href="/login">Sign In</Link>

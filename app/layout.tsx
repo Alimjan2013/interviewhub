@@ -21,9 +21,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <ElevenLabsProvider>
           {children}
+          <Analytics />
         </ElevenLabsProvider>
-        <Analytics />
-
       </body>
     </html>
   )

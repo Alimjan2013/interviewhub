@@ -11,7 +11,11 @@ import { Transcript } from "./transcript"
 import { useElevenLabs } from "./providers/elevenlabs-provider"
 import type { ConversationState, Message, MessagePayload } from "@/lib/types"
 
-export function ConversationUI() {
+interface ConversationUIProps {
+  agentId: string
+}
+
+export function ConversationUI({ agentId }: ConversationUIProps) {
   const elevenLabs = useElevenLabs()
   const [state, setState] = useState<ConversationState>({
     status: "idle",
@@ -29,28 +33,15 @@ export function ConversationUI() {
     }))
   }, [])
 
-  interface ConversationCallbacks {
-    onConnect: () => void;
-    onDisconnect: () => void;
-    onMessage: (message: string | MessagePayload) => void;
-    onError: (error: unknown) => void;
-  }
-
-  interface UseConversationOptions extends ConversationCallbacks {
-    apiKey: string;
-  }
-
   const conversation = useConversation({
     apiKey: process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY!,
-    onConnect: (): void => setState((prev) => ({ ...prev, status: "connected" })),
-    onDisconnect: (): void => setState((prev) => ({ ...prev, status: "disconnected" })),
-    onMessage: (message: string | MessagePayload): void => {
+    onConnect: () => setState((prev) => ({ ...prev, status: "connected" })),
+    onDisconnect: () => setState((prev) => ({ ...prev, status: "disconnected" })),
+    onMessage: (message: string | MessagePayload) => {
       console.log("Message:", message)
       try {
         const payload =
-          typeof message === "string"
-            ? (JSON.parse(message) as MessagePayload)
-            : (message as MessagePayload)
+          typeof message === "string" ? (JSON.parse(message) as MessagePayload) : (message as MessagePayload)
 
         setMessages((prev) => [
           ...prev,
@@ -66,7 +57,7 @@ export function ConversationUI() {
       }
     },
     onError: handleError,
-  } as UseConversationOptions)
+  })
 
   const startConversation = useCallback(async () => {
     try {
@@ -74,12 +65,12 @@ export function ConversationUI() {
       await navigator.mediaDevices.getUserMedia({ audio: true })
 
       await conversation.startSession({
-        agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ID!,
+        agentId,
       })
     } catch (error) {
       handleError(error)
     }
-  }, [conversation, handleError])
+  }, [conversation, handleError, agentId])
 
   const stopConversation = useCallback(async () => {
     try {
@@ -95,7 +86,7 @@ export function ConversationUI() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full">
       <CardHeader>
         <CardTitle>Interview Practice Session</CardTitle>
         <CardDescription>Start a conversation with your AI interviewer</CardDescription>

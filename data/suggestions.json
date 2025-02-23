@@ -1,0 +1,19 @@
+{
+  "suggestions": [
+    {
+      "agent_id": "v5Bg6db0BiwEaRvdFs0m",
+      "name": "Alimjan",
+      "created_at_unix_secs": 1708675200,
+      "access_level": "public",
+      "description": "Experienced technical interviewer specializing in software engineering roles"
+    },
+    {
+      "agent_id": "nD8tGK5VONhapUt0UnFW",
+      "name": "Sarah",
+      "created_at_unix_secs": 1708588800,
+      "access_level": "public",
+      "description": "HR professional with 10+ years of recruitment experience"
+    }
+  ]
+}
+

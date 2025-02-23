@@ -40,8 +40,8 @@ export function Transcript({ messages }: TranscriptProps) {
   }, [messages])
 
   return (
-    <ScrollArea className="h-[400px] w-full rounded-md bg-gradient-to-b from-slate-900 to-slate-950 p-4">
-      <div ref={scrollRef} className="flex flex-col items-center space-y-6 py-8">
+    <ScrollArea className="h-[400px] w-full rounded-md bg-gradient-to-b from-slate-900 to-slate-950 p-4 flex flex-col">
+      <div ref={scrollRef} className="flex flex-col items-center space-y-6 py-8 min-h-full justify-end">
         {messages.map((message, index) => {
           // Calculate opacity based on position (newer messages are more opaque)
           const opacity = Math.max(0.4, 1 - (messages.length - 1 - index) * 0.15)
